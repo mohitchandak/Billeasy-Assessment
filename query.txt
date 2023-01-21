@@ -1,0 +1,21 @@
+CREATE TABLE employees (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  department_id INTEGER REFERENCES departments(id),
+  salary INTEGER NOT NULL,
+  date_join DATE NOT NULL
+);
+
+CREATE TABLE departments (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  employee_count INTEGER DEFAULT 0    
+);
+
+Trigger: Update Employee Count in Department Table when new Employee is added.
+
+ CREATE OR REPLACE FUNCTION updateEmployeeCount() RETURNS TRIGGER AS $$ BEGIN UPDATE departments SET employee_count = employee_count + 1 WHERE id = NEW.department_id; RETURN NEW; END; $$ LANGUAGE plpgsql; CREATE TRIGGER updateEmployeeCountTrigger AFTER INSERT ON employees FOR EACH ROW EXECUTE PROCEDURE updateEmployeeCount();
+
+
+Query For last question 
+select * from departments,employees where departments.id = employees.department_id;
