@@ -5,12 +5,13 @@ const Pool = require("pg").Pool;
 
 const pool = new Pool({
   user: "postgres",
-  host: "localhost",
-  database: "billeasy",
-  password: "3105",
+  host: "containers-us-west-194.railway.app",
+  database: "railway",
+  password: "aoYi7LRVuc6idxep0YkP",
   dialect: "postgres",
-  port: 5432,
+  port: 7520,
 });
+
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
